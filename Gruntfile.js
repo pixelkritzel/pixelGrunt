@@ -106,6 +106,15 @@ module.exports = function(grunt) {
         dest: '<%= config.dist %>/scripts/main.js'
       }
     },
+    jasmine: {
+      pivotal: {
+        src: '<%= config.dist %>/**/*.js',
+        options: {
+          specs: 'spec/*Spec.js',
+          helpers: 'spec/*Helper.js'
+        }
+      }
+    },
     // Before generating any new files,
     // remove any previously-created files.
     clean: ['<%= config.dist %>/**/*.{html,xml,json}']
@@ -117,12 +126,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-neuter');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   grunt.registerTask('server', [
     'clean',
     'copy',
     'compass',
     'neuter',
+    'jasmine',
     'connect:livereload',
     'watch'
   ]);
