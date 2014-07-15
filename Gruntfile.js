@@ -133,7 +133,6 @@ module.exports = function(grunt) {
     'copy',
     'compass',
     'neuter',
-    'jasmine',
     'connect:livereload',
     'watch'
   ]);
