@@ -9,6 +9,7 @@
 module.exports = function(grunt) {
 
   require('time-grunt')(grunt);
+  require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
@@ -39,6 +40,10 @@ module.exports = function(grunt) {
       neuter: {
         files: ['<%= config.src %>/scripts/{,*/}*.js'],
         tasks: ['neuter']
+      },
+      'babel': {
+        files: ['.tmp/scripts/main.js'],
+        tasks: ['babel']
       },
       copy: {
         files: [
@@ -103,7 +108,17 @@ module.exports = function(grunt) {
     neuter: {
       application: {
         src: '<%= config.src %>/scripts/main.js',
-        dest: '<%= config.dist %>/scripts/main.js'
+        dest: '.tmp/scripts/main.js'
+      }
+    },
+    'babel': {
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          '<%= config.dist %>/scripts/main.js': '.tmp/scripts/main.js'
+        }
       }
     },
     jasmine: {
@@ -133,6 +148,7 @@ module.exports = function(grunt) {
     'copy',
     'compass',
     'neuter',
+    'babel',
     'connect:livereload',
     'watch'
   ]);
@@ -142,6 +158,7 @@ module.exports = function(grunt) {
     'compass',
     'copy',
     'neuter',
+    'babel',
   ]);
 
   grunt.registerTask('default', [
